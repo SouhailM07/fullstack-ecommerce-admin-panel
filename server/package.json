@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",
-    "start": "npx tsc && node dist/app.js",
+    "build": "tsc",
+    "start": "tsc && node dist/app.js",
     "dev": "ts-node-dev app.ts"
   },
   "keywords": [],
