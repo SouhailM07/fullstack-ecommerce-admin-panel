@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "install-server": "cd server && npm install",
-    "start-server": "cd server && ts-node-dev app.ts",
+    "start-server": "cd server &&  npm run dev",
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
-    "build-server":"cd server && npx tsc",
+    "build-server": "cd server && npx tsc",
     "start-client": "cd client && npm run start"
   },
   "engines": {
