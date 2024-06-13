@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(urlencoded({ extended: true }));
 const allowedOrigins: string[] = [
   "http://localhost:5173",
-  "http://localhost:5174",
+  "https://fullstack-ecommerce-admin-panel-client.onrender.com/",
 ];
 app.use(
   cors({
