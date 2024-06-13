@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/app.js",
+    "start": "npx tsc && node dist/app.js",
     "dev": "ts-node-dev app.ts"
   },
   "keywords": [],
