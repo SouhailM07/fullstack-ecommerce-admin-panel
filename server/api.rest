@@ -1,0 +1,79 @@
+##########################################################################
+# product api
+##########################################################################
+GET http://localhost:3007/products/
+###
+GET http://localhost:3007/products/66642b87a631feabfa86ee1a
+###
+POST http://localhost:3007/products/create/
+Content-Type: application/json
+
+{
+    "name":"Shadow suit",
+    "price":77,
+    "description":"A shadow warrior war suit."
+}
+###
+PUT http://localhost:3007/products/edit/66642b87a631feabfa86ee1a
+Content-Type: application/json
+
+{
+    "name":"shield",
+     "price":90,
+    "description":" a shadow shield"
+}
+
+###
+DELETE http://localhost:3007/products/delete/66642cc2a635aef643bd935a
+
+##########################################################################
+# user api
+##########################################################################
+GET http://localhost:3007/clerk
+###
+GET http://localhost:3007/clerk/user_2hTUVB24849N84hk8OKeodYlOPu
+###
+GET  http://localhost:3007/users/
+###
+GET  http://localhost:3007/users/6664845eb9d575412fd7b914
+###
+POST  http://localhost:3007/users/create
+Content-Type: application/json
+
+{
+    "clerkId":"just id 1",
+    "shoppingList":["hello","shadow","warrior"]
+}
+
+###
+PUT  http://localhost:3007/users/edit/user_2hTUVB24849N84hk8OKeodYlOPu
+Content-Type: application/json
+
+{
+   
+    "shoppingList":["hello"]
+}
+
+### 
+DELETE  http://localhost:3007/users/delete/6664845eb9d575412fd7b914
+
+##########################################################################
+# admin api
+##########################################################################
+GET http://localhost:3007/admins/
+
+
+##########################################################################
+# bill api
+##########################################################################
+GET http://localhost:3007/bills/
+###
+post http://localhost:3007/bills/create/
+Content-Type: application/json
+
+{
+    "userId":"1235",
+    "shoppingListDataExact":[{"name":"shadow warrior 07"}]
+}
+###
+DELETE http://localhost:3007/bills/delete/1235

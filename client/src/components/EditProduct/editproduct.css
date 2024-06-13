@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.product__img:hover img {
+  @apply opacity-55 transition-all duration-500;
+}
+
+.product__img .icon {
+  @apply opacity-0;
+}
+.product__img:hover .icon {
+  @apply opacity-100 transition-all duration-500;
+}
