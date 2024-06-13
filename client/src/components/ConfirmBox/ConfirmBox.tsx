@@ -6,7 +6,7 @@ import MyButton from "../MyButton/MyButton";
 import confirmStore from "@/zustand/confirm.store.js";
 import productsStore from "@/zustand/products.store.js";
 import loadingStore from "@/zustand/loading.store.js";
-import { deleteObject, ref } from "firebase/storage";
+import { ref } from "firebase/storage";
 import { storage } from "@/firebase";
 import productStore from "@/zustand/selected_product.store.js";
 import { deleteImage } from "@/lib/API_HANDLERS";
@@ -21,7 +21,7 @@ export default function ConfirmBox() {
   const deleteRef = ref(storage, `${selectedProduct?.imgName}`);
   const getProducts = () =>
     axios
-      .get("http://localhost:3007/products/")
+      .get("https://fullstack-ecommerce-admin-panel.onrender.com/products/")
       .then((res) => setProducts(res.data))
       .catch((err) => console.log(err));
 
@@ -29,7 +29,9 @@ export default function ConfirmBox() {
     setConfirmation(false);
     setLoading(true);
     axios
-      .delete(`http://localhost:3007/products/delete/${productId}`)
+      .delete(
+        `https://fullstack-ecommerce-admin-panel.onrender.com/products/delete/${productId}`
+      )
       .then(async () => {
         await deleteImage(deleteRef);
         getProducts();

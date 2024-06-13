@@ -9,7 +9,7 @@
     "install-client": "cd client && npm install",
     "build-client": "cd client && npm run build",
     "build-server": "cd server && npm run build",
-    "start-client": "cd client && npm run start"
+    "start-client": "cd client && npm run dev"
   },
   "engines": {
     "node": ">=18.17.1"

@@ -30,7 +30,7 @@ const formSchema = z.object({
   price: z.number().positive("Price must be a positive number"),
   description: z.string().min(3, "Description is required"),
   img: z.any().refine((file) => file instanceof File, {
-    message: "Input not instance of File",
+    message: "Image must be a File or a valid URL",
   }),
 });
 
@@ -90,11 +90,14 @@ const FormSection = () => {
       (res) => res
     );
     try {
-      await axios.post(`http://localhost:3007/products/create`, {
-        ...values,
-        img: downloadURL,
-        imgName,
-      });
+      await axios.post(
+        `https://fullstack-ecommerce-admin-panel.onrender.com/products/create`,
+        {
+          ...values,
+          img: downloadURL,
+          imgName,
+        }
+      );
 
       navigate("/products");
     } catch (err) {

@@ -121,15 +121,18 @@ const FormSection = () => {
       await handleDeleteAndUpload();
     }
     axios
-      .put(`http://localhost:3007/products/edit/${selectedProduct?._id}`, {
-        ...values,
-        imgName: editImgName,
-      })
+      .put(
+        `https://fullstack-ecommerce-admin-panel.onrender.com/products/edit/${selectedProduct?._id}`,
+        {
+          ...values,
+          imgName: editImgName,
+        }
+      )
       .then(() => {
         navigate("/products");
-        setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false));
   };
   return (
     <Form {...form}>

@@ -16,7 +16,7 @@ export default function ProductsPage() {
 
   const getProducts = () =>
     axios
-      .get("http://localhost:3007/products/")
+      .get("https://fullstack-ecommerce-admin-panel.onrender.com/products/")
       .then((res) => {
         setProducts(res.data);
       })
