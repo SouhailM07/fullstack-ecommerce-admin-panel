@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+//
+import { LoadingPage } from "@/components";
 import axios from "axios";
 import {
   Accordion,
@@ -9,10 +11,11 @@ import {
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState<any[]>([]);
-
+  const [loadingP, setLoadingP] = useState<boolean>(false);
   useEffect(() => {
     const fetchOrders = async () => {
       try {
+        setLoadingP(true);
         const ordersResponse = await axios.get(
           "https://fullstack-ecommerce-admin-panel.onrender.com/bills/"
         );
@@ -36,6 +39,8 @@ export default function OrdersPage() {
         setOrders(ordersWithUserInfo.reverse());
       } catch (error) {
         console.error("Error fetching orders or user info:", error);
+      } finally {
+        setLoadingP(false);
       }
     };
 
@@ -53,63 +58,67 @@ export default function OrdersPage() {
 
   return (
     <main>
-      <ul>
-        {orders.map((order, index) => {
-          const itemsLength = order.shoppingListDataExact.reduce(
-            (acc, e) => acc + e.productLength,
-            0
-          );
-          const totalBill = order.shoppingListDataExact.reduce(
-            (acc, e) => acc + e.productLength * +e.info.price,
-            0
-          );
-          return (
-            <Accordion key={index} role="listitem" type="single" collapsible>
-              <AccordionItem value={`item-${index}`}>
-                <AccordionTrigger className="grid grid-cols-[2rem_1fr_1fr_1fr_1fr_1fr] place-items-center">
-                  <img
-                    className="h-[2rem] aspect-square rounded-full "
-                    src={
-                      order.userInfoClerk.hasImage
-                        ? order.userInfoClerk.imageUrl
-                        : ""
-                    }
-                    alt="img"
-                  />
-                  <span>
-                    {order.userInfoClerk.firstName +
-                      " " +
-                      order.userInfoClerk.lastName}
-                  </span>
-                  <span>{itemsLength} items</span>
-                  <span>Total bill: ${totalBill}</span>
-                  <span>{formatDate(order.createdAt)}</span>
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ul className="space-y-[1rem]">
-                    {order.shoppingListDataExact.map((item, idx) => (
-                      <div key={idx} className="grid grid-cols-4 font-medium">
-                        <span>{item?.info.name}</span>
-                        <span>{item.productLength}</span>
-                        <span>${item.info.price}</span>
-                        <span className="text-green-600 ">
-                          ${item.productLength * +item.info.price}
-                        </span>
-                      </div>
-                    ))}
-                  </ul>
-                  <div className="flex justify-end mt-[1rem]">
-                    <p className="text-[1.2rem] font-bold">
-                      Total Bill :
-                      <span className="text-green-500"> ${totalBill}</span>
-                    </p>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          );
-        })}
-      </ul>
+      {loadingP ? (
+        <LoadingPage />
+      ) : (
+        <ul>
+          {orders.map((order, index) => {
+            const itemsLength = order.shoppingListDataExact.reduce(
+              (acc, e) => acc + e.productLength,
+              0
+            );
+            const totalBill = order.shoppingListDataExact.reduce(
+              (acc, e) => acc + e.productLength * +e.info.price,
+              0
+            );
+            return (
+              <Accordion key={index} role="listitem" type="single" collapsible>
+                <AccordionItem value={`item-${index}`}>
+                  <AccordionTrigger className="grid grid-cols-[2rem_1fr_1fr_1fr_1fr_1fr] place-items-center">
+                    <img
+                      className="h-[2rem] aspect-square rounded-full "
+                      src={
+                        order.userInfoClerk.hasImage
+                          ? order.userInfoClerk.imageUrl
+                          : ""
+                      }
+                      alt="img"
+                    />
+                    <span>
+                      {order.userInfoClerk.firstName +
+                        " " +
+                        order.userInfoClerk.lastName}
+                    </span>
+                    <span>{itemsLength} items</span>
+                    <span>Total bill: ${totalBill}</span>
+                    <span>{formatDate(order.createdAt)}</span>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <ul className="space-y-[1rem]">
+                      {order.shoppingListDataExact.map((item, idx) => (
+                        <div key={idx} className="grid grid-cols-4 font-medium">
+                          <span>{item?.info.name}</span>
+                          <span>{item.productLength}</span>
+                          <span>${item.info.price}</span>
+                          <span className="text-green-600 ">
+                            ${item.productLength * +item.info.price}
+                          </span>
+                        </div>
+                      ))}
+                    </ul>
+                    <div className="flex justify-end mt-[1rem]">
+                      <p className="text-[1.2rem] font-bold">
+                        Total Bill :
+                        <span className="text-green-500"> ${totalBill}</span>
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            );
+          })}
+        </ul>
+      )}
     </main>
   );
 }

@@ -1,49 +1,63 @@
-import "./productspage.css";
 import { faSearch, faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
 // components
-import { MyButton } from "@/components";
+import { MyButton, LoadingPage } from "@/components";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
+// zustand stores
 import productsStore from "@/zustand/products.store.js";
 import confirmStore from "@/zustand/confirm.store.js";
 import productStore from "@/zustand/selected_product.store.js";
 
 export default function ProductsPage() {
   let [searchProduct, setSearchProduct] = useState<string>("");
+  let [loadingP, setLoadingP] = useState<boolean>(false);
   const { setProducts, products } = productsStore((state) => state);
 
-  const getProducts = () =>
+  const getProducts = () => {
+    setLoadingP(true);
     axios
       .get("https://fullstack-ecommerce-admin-panel.onrender.com/products/")
       .then((res) => {
         setProducts(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setLoadingP(false));
+  };
+  const filteredProducts = useMemo(() => {
+    return products.filter((e) =>
+      e?.name.toLowerCase().includes(searchProduct.toLowerCase())
+    );
+  }, [products, searchProduct]);
+
   useEffect(() => {
     getProducts();
   }, []);
   return (
     <main className="space-y-[2rem] max-w-[60rem]">
-      <section className="grid grid-cols-[1fr_2fr_1fr]  items-center">
-        <Link to="createProduct">
-          <MyButton color="text-white bg-secondaryColor" label="+ Add" />
-        </Link>
-        <MySearchInput value={searchProduct} handler={setSearchProduct} />
-        <span className="justify-self-end">
-          Total Products : {products.length}
-        </span>
-      </section>
-      <section className="text-center">
-        <ul className="flex flex-col gap-y-[1rem]">
-          {products
-            .filter((e) => e?.name.toLocaleLowerCase().includes(searchProduct))
-            .map((e, i) => (
-              <RenderItem {...e} dispatchState={getProducts} i={i} key={i} />
-            ))}
-        </ul>
-      </section>
+      {loadingP ? (
+        <LoadingPage />
+      ) : (
+        <>
+          <section className="grid grid-cols-[1fr_2fr_1fr]  items-center">
+            <Link to="createProduct">
+              <MyButton color="text-white bg-secondaryColor" label="+ Add" />
+            </Link>
+            <MySearchInput value={searchProduct} handler={setSearchProduct} />
+            <span className="justify-self-end">
+              Total Products : {products.length}
+            </span>
+          </section>
+          <section className="text-center">
+            <ul className="flex flex-col gap-y-[1rem]">
+              {filteredProducts.map((e, i) => (
+                <RenderItem {...e} i={i} key={i} />
+              ))}
+            </ul>
+          </section>
+        </>
+      )}
     </main>
   );
 }
@@ -62,7 +76,12 @@ const RenderItem = ({ _id, name, price, description, img, imgName }) => {
   };
   return (
     <li className="grid grid-cols-[9rem_10rem_5rem_1fr] gap-x-[2rem] items-center ">
-      <img className="h-[5rem] aspect-video " src={img} alt=" img" />
+      <img
+        className="h-[5rem] aspect-video "
+        src={img}
+        alt=" img"
+        loading="lazy"
+      />
       <h1>{name}</h1>
       <p className="font-bold">
         <span className="text-green-500">$</span>
