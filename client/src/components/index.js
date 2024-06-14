@@ -8,3 +8,4 @@ export { default as Loading } from "./Loading/Loading";
 export { default as ConfirmBox } from "./ConfirmBox/ConfirmBox";
 export { default as MyInput } from "./MyInput/MyInput";
 export { default as OrdersPage } from "./OrdersPage/OrdersPage";
+export { default as LoadingPage } from "./LoadingPage/LoadingPage";
