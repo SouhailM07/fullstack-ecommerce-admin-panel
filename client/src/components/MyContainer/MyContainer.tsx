@@ -1,5 +1,5 @@
 import "./mycontainer.css";
-import { Routes, Route, Outlet } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 // components
 import { MyPanel, Navbar, Loading, ConfirmBox } from "@/components";
 // routes
@@ -17,7 +17,6 @@ export default function MyContainer() {
       <MyPanel />
       <div className="w-full">
         <Navbar />
-        <Outlet />
         <main id="main" className="p-pxSize ">
           <Routes>
             <Route path="dashboard/" element={<DashboardPage />} />
