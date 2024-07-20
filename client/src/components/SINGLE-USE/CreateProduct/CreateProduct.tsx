@@ -3,7 +3,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import MyButton from "../MyButton/MyButton";
+import MyButton from "../../REUSABLE/MyButton/MyButton";
 import {
   faArrowRight,
   faCloud,
@@ -13,8 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { inputs_t } from "@/types";
 import loadingStore from "@/zustand/loading.store.js";
-import MyInput from "../MyInput/MyInput";
-import { Form } from "../ui/form";
+import MyInput from "../../REUSABLE/MyInput/MyInput";
+import { Form } from "../../ui/form";
 
 import {
   FormControl,

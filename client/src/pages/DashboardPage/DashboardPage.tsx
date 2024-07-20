@@ -14,11 +14,14 @@ export default function DashboardPage() {
   ];
   return (
     <section className="min-h-screenH max-w-[70rem]">
-      <ul id="details" className="grid grid-cols-4 gap-x-[1rem]">
+      <ul
+        id="details"
+        className="flex items-center max-sm:justify-center flex-wrap  gap-[1rem]"
+      >
         {details.map((e: detail_t, i) => (
           <li
             key={i}
-            className="border-borderColor rounded-lg border min-h-[11rem] flex flex-col justify-between px-3 py-[1rem]"
+            className="border-borderColor text-center rounded-lg sm:aspect-square border max-sm:w-full min-w-[11rem] flex flex-col justify-between px-3 py-[1rem]"
           >
             <div className="flex flex-col gap-y-[1rem]">
               <h1 className="text-title font-bold">{e.title}</h1>

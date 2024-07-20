@@ -1,6 +1,7 @@
 import { faSearch, faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
 // components
-import { MyButton, LoadingPage } from "@/components";
+import LoadingPage from "@/components/REUSABLE/LoadingPage/LoadingPage";
+import MyButton from "@/components/REUSABLE/MyButton/MyButton";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, useMemo } from "react";

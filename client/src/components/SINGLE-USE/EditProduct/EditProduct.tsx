@@ -13,7 +13,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import MyButton from "../MyButton/MyButton";
+import MyButton from "../../REUSABLE/MyButton/MyButton";
 import {
   faArrowRight,
   faCloud,
@@ -22,7 +22,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { inputs_t } from "@/types";
-import MyInput from "../MyInput/MyInput";
+import MyInput from "../../REUSABLE/MyInput/MyInput";
 import productStore from "@/zustand/selected_product.store.js";
 import loadingStore from "@/zustand/loading.store.js";
 import { ref } from "firebase/storage";

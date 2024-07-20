@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 //
-import { LoadingPage } from "@/components";
+import LoadingPage from "@/components/REUSABLE/LoadingPage/LoadingPage";
 import axios from "axios";
 import {
   Accordion,
