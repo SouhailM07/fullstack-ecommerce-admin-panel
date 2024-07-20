@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 // assets
-import { faBox, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBox } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { links } from "@/lib/constants";
 
@@ -16,12 +16,6 @@ export default function MyPanel() {
             <FontAwesomeIcon icon={faBox} />
             <span>Acme Inc</span>
           </h1>
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="border-2 text-gray-600 border-borderColor aspect-square h-[2.2rem] rounded-lg"
-          >
-            <FontAwesomeIcon icon={faBell} />
-          </motion.button>
         </div>
         <ul className="flex flex-col gap-y-[1rem] items-center py-[1rem]">
           {links.map((e, i) => (

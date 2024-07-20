@@ -1,15 +1,21 @@
-import { faSearch, faTrash, faWrench } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faSearch,
+  faTrash,
+  faWrench,
+} from "@fortawesome/free-solid-svg-icons";
 // components
 import LoadingPage from "@/components/REUSABLE/LoadingPage/LoadingPage";
 import MyButton from "@/components/REUSABLE/MyButton/MyButton";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, InputHTMLAttributes } from "react";
 import axios from "axios";
 // zustand stores
 import productsStore from "@/zustand/products.store.js";
 import confirmStore from "@/zustand/confirm.store.js";
 import productStore from "@/zustand/selected_product.store.js";
+import MyIconBtn from "@/components/REUSABLE/MyIconBtn/MyIconBtn";
 
 export default function ProductsPage() {
   let [searchProduct, setSearchProduct] = useState<string>("");
@@ -41,17 +47,18 @@ export default function ProductsPage() {
         <LoadingPage />
       ) : (
         <>
-          <section className="grid grid-cols-[1fr_2fr_1fr]  items-center">
-            <Link to="createProduct">
-              <MyButton color="text-white bg-secondaryColor" label="+ Add" />
-            </Link>
-            <MySearchInput value={searchProduct} handler={setSearchProduct} />
-            <span className="justify-self-end">
-              Total Products : {products.length}
-            </span>
-          </section>
+          <ControlPanel
+            products={products}
+            searchProduct={searchProduct}
+            setSearchProduct={setSearchProduct}
+          />
+          <SmallControlPanel
+            products={products}
+            searchProduct={searchProduct}
+            setSearchProduct={setSearchProduct}
+          />
           <section className="text-center">
-            <ul className="flex flex-col gap-y-[1rem]">
+            <ul className="flex max-md:justify-center md:flex-col gap-[1rem] flex-wrap">
               {filteredProducts.map((e, i) => (
                 <RenderItem {...e} i={i} key={i} />
               ))}
@@ -76,9 +83,9 @@ const RenderItem = ({ _id, name, price, description, img, imgName }) => {
     editSelectedProduct({ name, price, description, _id, img, imgName });
   };
   return (
-    <li className="grid grid-cols-[9rem_10rem_5rem_1fr] gap-x-[2rem] items-center ">
+    <li className="grid max-md:grid-row-4 md:grid-cols-[2fr_1fr_1fr_1fr] max-md:w-[15rem] max-md:justify-center items-center  gap-[1rem]">
       <img
-        className="h-[5rem] aspect-video "
+        className="md:h-[5rem] max-md:w-full aspect-video "
         src={img}
         alt=" img"
         loading="lazy"
@@ -88,36 +95,101 @@ const RenderItem = ({ _id, name, price, description, img, imgName }) => {
         <span className="text-green-500">$</span>
         {price}
       </p>
-      <div className="flex gap-x-[1rem] justify-self-end">
+      <div className="flex gap-x-[1rem] max-md:justify-between md:justify-self-end">
         <Link to={`editProduct/`}>
-          <MyButton
-            handler={handleEdit}
+          <MyIconBtn
+            customStyle="text-white bg-blue-600"
             icon={faWrench}
-            label="Edit"
-            color="text-white bg-blue-600"
+            onClick={handleEdit}
           />
         </Link>
-
-        <MyButton
-          handler={handleDelete}
+        <MyIconBtn
+          customStyle="text-white bg-red-500"
           icon={faTrash}
-          label="Delete"
-          color="text-white bg-red-500"
+          onClick={handleDelete}
         />
       </div>
     </li>
   );
 };
 
-const MySearchInput = ({ value, handler }: { value: string; handler: any }) => (
-  <div className="border-2 border-black p-2 rounded-lg flex gap-x-[1rem] items-center w-full">
+interface MySearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  value: string;
+  customStyle?: string;
+}
+
+const MySearchInput = ({
+  value,
+  customStyle,
+  ...props
+}: MySearchInputProps) => (
+  <div
+    className={`${customStyle} z-[10] border-2 border-black p-2 rounded-lg flex gap-x-[1rem] items-center w-full`}
+  >
     <FontAwesomeIcon icon={faSearch} />
     <input
-      onChange={(e) => handler(e.target.value)}
       value={value}
       placeholder="Search..."
       type="text"
-      className=" outline-none w-full  "
+      className="outline-none w-full"
+      {...props}
     />
   </div>
 );
+
+const ControlPanel = ({ searchProduct, setSearchProduct, products }) => {
+  return (
+    <section className="grid grid-cols-[5rem_1fr_8rem] gap-x-3 items-center max-md:hidden">
+      <Link to="createProduct">
+        <MyButton color="text-white bg-secondaryColor" label="+ Add" />
+      </Link>
+      <MySearchInput
+        value={searchProduct}
+        onChange={(e) => setSearchProduct(e.target.value)}
+      />
+      <span className="justify-self-end">
+        Total Products : {products.length}
+      </span>
+    </section>
+  );
+};
+
+const SmallControlPanel = ({ products, searchProduct, setSearchProduct }) => {
+  let [toggleSearch, setToggleSearch] = useState<boolean>(false);
+  const searchHandler = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      setSearchProduct(e.target.value);
+      setToggleSearch(false);
+    }
+  };
+
+  return (
+    <section className="md:hidden flex items-center justify-between">
+      {toggleSearch && (
+        <MySearchInput
+          customStyle="bg-white left-0 w-full absolute h-[3rem]"
+          value={searchProduct}
+          onKeyDown={searchHandler}
+          onChange={(e) => setSearchProduct(e.target.value)}
+        />
+      )}
+      <span className="justify-self-end">
+        Total Products : {products.length}
+      </span>
+      <article className="flex items-center gap-x-3">
+        <Link to="createProduct">
+          <MyIconBtn
+            icon={faPlus}
+            customStyle="!rounded-full text-white bg-secondaryColor"
+          />
+        </Link>
+        <MyIconBtn
+          onClick={() => setToggleSearch(true)}
+          customStyle="!rounded-full text-white bg-secondaryColor"
+          icon={faSearch}
+        />
+      </article>
+    </section>
+  );
+};
