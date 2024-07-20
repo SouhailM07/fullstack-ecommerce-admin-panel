@@ -31,7 +31,7 @@ export default function Navbar() {
   };
   getRouteName();
   return (
-    <header className="sticky top-0 bg-white py-pySize px-pxSize h-header border-b-2 border-borderColor  z-[20]">
+    <header className="sticky top-0 bg-white py-pySize max-md:px-[1rem] px-pxSize h-header border-b-2 border-borderColor  z-[20]">
       <nav className="flex justify-between items-center">
         <span className="text-title font-bold capitalize">
           {getRouteName()}

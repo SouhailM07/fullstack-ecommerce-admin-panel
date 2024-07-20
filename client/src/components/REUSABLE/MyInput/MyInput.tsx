@@ -19,7 +19,7 @@ export default function MyInput({ name, control, label, placeholder, type }) {
           <FormControl>
             {type == "input" ? (
               <Input
-                className="min-w-[20rem]"
+                className="sm:min-w-[18rem]"
                 placeholder={placeholder}
                 {...field}
                 type={name == "price" ? "number" : "text"}

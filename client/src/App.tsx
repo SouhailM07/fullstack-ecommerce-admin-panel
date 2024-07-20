@@ -1,8 +1,8 @@
 import "./style/input.css";
 import "./App.css";
 //
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { AuthenticateWithRedirectCallback, useAuth } from "@clerk/clerk-react";
+import { Routes, Route } from "react-router-dom";
+import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react";
 import MyLogin from "./components/SINGLE-USE/MyLogin/MyLogin";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ProductsRoute from "./pages/ProductsRoute/ProductsRoute";
@@ -15,9 +15,6 @@ import MyPanel from "./components/SINGLE-USE/MyPanel/MyPanel";
 import Navbar from "./components/SINGLE-USE/Navbar/Navbar";
 
 function App() {
-  const { isSignedIn } = useAuth();
-  const location = useLocation();
-  const navigate = useNavigate();
   // auth guardian
   // useLayoutEffect(() => {
   //   if (!isSignedIn && location.pathname !== "/login/") {
@@ -33,7 +30,7 @@ function App() {
       <MyPanel />
       <div className="w-full">
         <Navbar />
-        <main id="main" className="p-pxSize ">
+        <main id="main" className="lg:p-pxSize md:p-[1rem] p-3">
           <Routes>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/products/*" element={<ProductsRoute />} />

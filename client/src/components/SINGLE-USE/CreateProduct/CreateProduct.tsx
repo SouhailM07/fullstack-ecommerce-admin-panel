@@ -113,7 +113,7 @@ const FormSection = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-y-[1rem]"
       >
-        <article className="flex justify-between items-start">
+        <article className="flex max-md:flex-col gap-3  justify-between items-center md:items-start">
           <FormField
             control={form.control}
             name="img"
@@ -126,7 +126,7 @@ const FormSection = () => {
               </FormItem>
             )}
           />
-          <ul className="space-y-[1rem]">
+          <ul className="space-y-[1rem] max-md:w-full">
             {inputs.map((e: any, i) => (
               <MyInput key={i} {...e} control={form.control} />
             ))}
@@ -167,7 +167,7 @@ const ProductImg = ({ field }) => {
             setPreviewImg(imageUrl);
           }
         }}
-        className="z-[3] h-full opacity-0 cursor-pointer"
+        className="z-[3] h-full opacity-0 w-full cursor-pointer "
       />
       <div className="grid place-items-center absolute">
         <img
