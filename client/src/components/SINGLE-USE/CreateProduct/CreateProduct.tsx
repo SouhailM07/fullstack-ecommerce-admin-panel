@@ -3,7 +3,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import MyButton from "../MyButton/MyButton";
+import MyButton from "../../REUSABLE/MyButton/MyButton";
 import {
   faArrowRight,
   faCloud,
@@ -13,8 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { inputs_t } from "@/types";
 import loadingStore from "@/zustand/loading.store.js";
-import MyInput from "../MyInput/MyInput";
-import { Form } from "../ui/form";
+import MyInput from "../../REUSABLE/MyInput/MyInput";
+import { Form } from "../../ui/form";
 
 import {
   FormControl,
@@ -113,7 +113,7 @@ const FormSection = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-y-[1rem]"
       >
-        <article className="flex justify-between items-start">
+        <article className="flex max-md:flex-col gap-3  justify-between items-center md:items-start">
           <FormField
             control={form.control}
             name="img"
@@ -126,7 +126,7 @@ const FormSection = () => {
               </FormItem>
             )}
           />
-          <ul className="space-y-[1rem]">
+          <ul className="space-y-[1rem] max-md:w-full">
             {inputs.map((e: any, i) => (
               <MyInput key={i} {...e} control={form.control} />
             ))}
@@ -167,7 +167,7 @@ const ProductImg = ({ field }) => {
             setPreviewImg(imageUrl);
           }
         }}
-        className="z-[3] h-full opacity-0 cursor-pointer"
+        className="z-[3] h-full opacity-0 w-full cursor-pointer "
       />
       <div className="grid place-items-center absolute">
         <img

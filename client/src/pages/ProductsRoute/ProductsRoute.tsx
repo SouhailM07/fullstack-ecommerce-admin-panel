@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import ProductsPage from "@/components/ProductsPage/ProductsPage";
-import EditProduct from "@/components/EditProduct/EditProduct";
-import CreateProduct from "@/components/CreateProduct/CreateProduct";
+import ProductsPage from "@/components/SINGLE-USE/ProductsPage/ProductsPage";
+import EditProduct from "@/components/SINGLE-USE/EditProduct/EditProduct";
+import CreateProduct from "@/components/SINGLE-USE/CreateProduct/CreateProduct";
 
 export default function ProductsRoute() {
   return (
