@@ -21,7 +21,7 @@ export default function DashboardPage() {
         {details.map((e: detail_t, i) => (
           <li
             key={i}
-            className="border-borderColor text-center rounded-lg sm:aspect-square border max-sm:w-full min-w-[11rem] flex flex-col justify-between px-3 py-[1rem]"
+            className="border-borderColor max-sm:text-center rounded-lg sm:aspect-square border max-sm:w-full min-w-[11rem] flex flex-col justify-between px-3 py-[1rem]"
           >
             <div className="flex flex-col gap-y-[1rem]">
               <h1 className="text-title font-bold">{e.title}</h1>

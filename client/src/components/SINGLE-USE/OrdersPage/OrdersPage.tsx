@@ -73,8 +73,11 @@ export default function OrdersPage() {
             );
             return (
               <Accordion key={index} role="listitem" type="single" collapsible>
-                <AccordionItem value={`item-${index}`}>
-                  <AccordionTrigger className="grid grid-cols-[2rem_1fr_1fr_1fr_1fr_1fr] place-items-center">
+                <AccordionItem
+                  value={`item-${index}`}
+                  // grid max-md:grid-cols-2 gap-y-[1rem] max-md:grid-rows-2
+                >
+                  <AccordionTrigger className="max-sm:grid-cols-2 max-sm:grid-rows-4  grid grid-cols-[2rem_1fr_1fr_1fr_1fr_1fr] place-items-center">
                     <img
                       className="h-[2rem] aspect-square rounded-full "
                       src={
@@ -89,15 +92,24 @@ export default function OrdersPage() {
                         " " +
                         order.userInfoClerk.lastName}
                     </span>
-                    <span>{itemsLength} items</span>
-                    <span>Total bill: ${totalBill}</span>
-                    <span>{formatDate(order.createdAt)}</span>
+                    <span className="max-sm:col-start-1">
+                      {itemsLength} items
+                    </span>
+                    <span className="max-sm:row-start-3 ">
+                      Total bill: ${totalBill}
+                    </span>
+                    <span className="">{formatDate(order.createdAt)}</span>
                   </AccordionTrigger>
                   <AccordionContent>
                     <ul className="space-y-[1rem]">
                       {order.shoppingListDataExact.map((item, idx) => (
-                        <div key={idx} className="grid grid-cols-4 font-medium">
-                          <span>{item?.info.name}</span>
+                        <div
+                          key={idx}
+                          className="grid grid-cols-4 font-medium max-sm:grid-cols-3 max-sm:grid-row-2 max-sm:gap-y-3"
+                        >
+                          <span className="max-sm:col-span-3">
+                            {item?.info.name}
+                          </span>
                           <span>{item.productLength}</span>
                           <span>${item.info.price}</span>
                           <span className="text-green-600 ">
